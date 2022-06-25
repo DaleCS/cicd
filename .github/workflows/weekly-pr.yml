@@ -12,9 +12,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with: { ref: development }
       
       - name: Create PR
         uses: peter-evans/create-pull-request@v4
         with:
-          reviewers: DaleCS
-          branch: development
+          title: 'scheduled/development'
+          body: 'uwu'
+          reviewers: dalecs
+          branch: main
