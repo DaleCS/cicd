@@ -1,0 +1,28 @@
+name: Weekly PR to merge 'development' to 'main'
+
+on:
+  # Triggers every Thursday 8:58AM PDT. It's set to this time to avoid heavy traffic at 8:00AM
+  schedule:
+  - cron: '58 15 * * 4'
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%m-%d-%Y')"
+      
+      - name: create pr
+        uses: thomaseizinger/create-pull-request@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          head: refs/heads/development
+          base: main
+          title: weekly-pr-${{ steps.date.outputs.date }}
+          body: Weekly automated PR to merge 'development' to 'main'
+          reviewers: dalecs
+          labels: automated pr
