@@ -3,7 +3,8 @@ name: Weekly PR to merge 'development' to 'main'
 on:
   # Triggers every Thursday 7:58AM PDT. It's set to this time to avoid heavy traffic at 8:00AM
   schedule:
-  - cron: '58 14 * * 4'
+#   - cron: '58 14 * * 4'
+    - cron: '*/5 * * * *'
 
 jobs:
   create-pull-request:
