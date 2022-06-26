@@ -15,9 +15,9 @@ jobs:
         with: { ref: development }
       
       - name: Create PR
-        uses: peter-evans/create-pull-request@v4
+        uses: thomaseizinger/create-pull-request@master
         with:
-          title: 'scheduled/development'
-          body: 'uwu'
-          reviewers: dalecs
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          head: ${{ github.ref }}
           base: main
+          title: 'An automatically created PR!'
