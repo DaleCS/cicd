@@ -20,4 +20,4 @@ jobs:
           title: 'scheduled/development'
           body: 'uwu'
           reviewers: dalecs
-          branch: main
+          base: main
