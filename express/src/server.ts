@@ -17,4 +17,5 @@ app.get("/", async (req: Request, res: Response) => {
 
 app.listen(PORT, (): void => {
     console.log("express server is listening on port: " + PORT);
+    console.log("change");
 });
