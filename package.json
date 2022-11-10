@@ -1,0 +1,25 @@
+{
+  "name": "cicd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaleCS/cicd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaleCS/cicd/issues"
+  },
+  "homepage": "https://github.com/DaleCS/cicd#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^6.7.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
