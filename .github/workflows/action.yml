@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: authenticate w/ GCP
+        id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          workload_identity_provider: 'projects/899738447357/locations/global/workloadIdentityPools/gh-actions/providers/github-actions'
+          service_account: 'bamboozle@playground-368018.iam.gserviceaccount.com '
+
+      - name: check npm cache
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: run script
+        run: npm start
