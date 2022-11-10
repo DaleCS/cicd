@@ -14,3 +14,5 @@ async function downloadFile() {
 downloadFile().then(() => {
     console.log("DONE!");
 });
+
+console.log("");
