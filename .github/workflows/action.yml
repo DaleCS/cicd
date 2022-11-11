@@ -28,8 +28,8 @@ jobs:
         id: 'auth'
         uses: 'google-github-actions/auth@v1'
         with:
-          workload_identity_provider: 'projects/899738447357/locations/global/workloadIdentityPools/gh-actions/providers/github-actions'
-          service_account: 'bamboozle@playground-368018.iam.gserviceaccount.com '
+          workload_identity_provider: 'projects/899738447357/locations/global/workloadIdentityPools/github-actions/providers/github'
+          service_account: 'bamboozle@playground-368018.iam.gserviceaccount.com'
 
       - name: check npm cache
         if: steps.npm-cache.outputs.cache-hit != 'true'
