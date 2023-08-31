@@ -19,7 +19,7 @@ jobs:
       - name: git checkout main
         uses: actions/checkout@v3
         with:
-          repository: jci-internal-dev/int-jc2-nest-integration-poc
+          repository: DaleCS/cicd
           token: ${{ github.token }}
           ref: main
 
