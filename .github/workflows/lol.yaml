@@ -1,0 +1,55 @@
+name: Deploy to GCP App Engine
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: git checkout main
+        uses: actions/checkout@v3
+        with:
+          repository: jci-internal-dev/int-jc2-nest-integration-poc
+          token: ${{ github.token }}
+          ref: main
+
+      - name: set up node and set version to 18.17.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.0
+
+      - name: set up gcloud cli
+        uses: "google-github-actions/setup-gcloud@v1"
+        with:
+          version: ">= 363.0.0"
+
+      - name: authenticate with GCP
+        id: "auth"
+        uses: "google-github-actions/auth@v1"
+        with:
+          workload_identity_provider: "projects/130074408348/locations/global/workloadIdentityPools/github-actions/providers/github-actions"
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: cache dependencies
+        id: cache-dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('./package-lock.json') }}
+
+      - name: install dependencies
+        if: steps.cache-dependencies.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: build & deploy to gcp app engine
+        run: npm run deploy:nest-micro
